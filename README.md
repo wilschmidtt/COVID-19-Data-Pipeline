@@ -38,6 +38,9 @@ Repo update in progress
 * Next, open the add_safety_measures.py program, change all the directories so that they point to the proper locations on your machine, then run the entrie program. Once run, 'complete_df_safety_measures.csv/json' will be saved into your 'Ouput Data' folder.
   - NOTE: The program will attempt to fill in all region populations using the data located in the 'Helper Data' folder. However, if there are any locations that do not already have their populations saved within the 'Helper Data' folder, these locations will be printed out, and you will have to manually search Google and adds these populations into the appropriate .csv files within Helper Data.
 
+### Data Frame Screenshots
+
+
 ### Final Thoughts
 *
 

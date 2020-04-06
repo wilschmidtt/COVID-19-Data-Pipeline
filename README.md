@@ -1,5 +1,3 @@
-Repo update in progress
-
 # COVID-19 Live Data Pipeline
 
 ### Understanding Repo Contents

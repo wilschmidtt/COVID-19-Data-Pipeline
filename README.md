@@ -38,17 +38,17 @@
 
 ### Data Frame Screenshots
 
-##### complete_df
+#### complete_df
 
 ![Images](Images/complete_df.png)
 
-##### complete_df_safety_measures
+#### complete_df_safety_measures
 
 ![Images](Images/complete_df_safety_measures.png)
 
 ### Final Thoughts
 * As of now, the pipeline was manually run at 9:00 a.m. and 9:00 p.m. each day. In future versions, the programs could be set up to run automatically each day.
-* One time consuming aspect of the pipeline was checking for locations that had missing populations. In 'Helper Data', the populations for all locations were saved into a .csv file. However, with each new day, novel locations saw cases of COVID-19, so 'Helper Data' did not contain the populations for these areas, and the populations had to be manually added into the helper .csv files. In future versions, the program could be configured so that when a population is missing, it automatically scrapes the internet and fills in the population automatically
+* One time consuming aspect of the pipeline was checking for locations that had missing populations. In 'Helper Data', the populations for all locations were saved into a .csv file. However, with each new day, novel locations saw cases of COVID-19, so 'Helper Data' did not contain the populations for these areas and the populations had to be manually added in. In future versions, the program could be configured so that when a population is missing, it automatically scrapes the internet and fills in the missing populations.
 * One final change that could be made would be including region/state data for more countries. As of now, region/state data was only included for five countries: US, China, Spain, Italy, and Australia.
 
 ## Authors

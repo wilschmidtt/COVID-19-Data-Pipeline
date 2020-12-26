@@ -1,6 +1,6 @@
 # COVID-19 Live Data Pipeline
 
-### Understanding Repo Contents
+### Understanding Repository Contents
 * Helper Data
   - Contains helper data for the program 'COVID19_data_pipeline.py.' 
   - Helper data found in the folder includes data pertaining to country populations, country region names, number of available hospital beds in each region, county names for each US state, and latitudes and longitudes for each location.

@@ -29,7 +29,7 @@
 * datetime
 * re
 * requests
-
+ 
 ## Running the Programs
 * First, open the COVID19_data_pipeline.py program, change all directories so that they point to the proper locations on your machine, then run the entire program. Once run, 'complete_df.csv/json' will be saved into your 'Output Data' folder.
   - NOTE: If you are running the program for the first time, you will have to navigate to Part 8 and un-comment this section. Once you have run the program once and you have verified that 'complete_df.csv/json' were saved into your 'Output Data' folder, then you can comment out this section again. You do not need to re-execute Part 8 the next time that you run the program due to the fact that the program will use the previously downloaded 'complete_df.csv/json' as its basis, adding any updated data onto these dataframes. 

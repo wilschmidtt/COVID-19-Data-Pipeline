@@ -1,4 +1,4 @@
-# COVID-19 Live Data Pipeline
+# COVID-19 Data Pipeline
 
 ### Understanding Repository Contents
 * Helper Data

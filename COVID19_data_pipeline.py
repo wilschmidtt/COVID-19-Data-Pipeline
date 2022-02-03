@@ -1,7 +1,3 @@
-##### PART 1: #####
-
-# Crawling ECDC for global cases, excluding US and China
-
 import httplib2
 import bs4
 import datetime
@@ -36,10 +32,6 @@ current_date = datetime.datetime.today().strftime('%Y-%m-%d')
 output = open(f'Helper_Data/ecdc_daily_world_data/COVID-19-geographic-disbtribution-worldwide-{current_date}.xlsx', 'wb')
 output.write(resp.content)
 output.close()
-      
-  
-
-##### PART 2: #####
 
 # Parsing ECDC to create dataframe for global cases, excluding US and China
 
@@ -74,17 +66,11 @@ world_df['Confirmed'] = world_df['Confirmed'].fillna(0).astype(int)
 world_df['Deaths'] = world_df['Deaths'].fillna(0).astype(int)
 
 # Temporary workaround for https://github.com/open-covid-19/data/issues/12
-# ECDC reported only 90 new cases for Italy, which is clearly wrong. For all
-# other days, it appears to report only active cases so we are reporting
-# today's active case count from the local official source to avoid a sudden
-# jump in the data but this will be fixed retroactively
-# https://web.archive.org/web/20200316021137/http://www.salute.gov.it/nuovocoronavirus
 world_df = world_df.set_index(['Date', 'CountryCode'])
 world_df.loc[('2020-03-15', 'IT'), 'Confirmed'] = 20603
 world_df = world_df.reset_index()
 
 # Load coordinates and names for each country
-# Data from: https://developers.google.com/public-data/docs/canonical/countries_csv
 world_df = world_df.merge(pd.read_csv('Helper_Data/country_coordinates.csv', dtype=str))
 
 # Add in a column for days since 12/31/2019
@@ -116,21 +102,9 @@ world_df['Confirmed'] = world_df['Confirmed'].fillna(value)
 world_df = world_df.sort_values(['Date', 'CountryCode'])
 world_df = world_df[['Date', 'Days Since 2019-12-31', 'CountryCode', 'CountryName', 'Region', 'Confirmed', 'Deaths', 'Latitude', 'Longitude']]
 
-
-
-
-
-##### PART 3: #####
-
-'''Credit to https://covidtracking.com/api/ for providing daily updates on US COVID19 cases'''
-
-# Create dataframe for US cases by state
-    
-# Read JSON file from covidtracking's website
 # We must use the requests package directly because covidtracking returns 403 otherwise
 us_df = pd.read_json(requests.get(
     'https://covidtracking.com/api/states/daily', headers={'User-agent': 'Mozilla/5.0'}).text)
-
 
 # Rename the appropriate columns
 us_df = us_df.rename(columns={
@@ -181,14 +155,6 @@ us_df = us_df[[
     'Longitude',
 ]]
 us_df = us_df.sort_values(['Date', 'Region'])
-
-
-
-
-
-##### PART 4 #####
-    
-'''Credit to the github.com/BlankerL team for scraping the data from DXY.cn.'''
 
 # Read DXY CSV file from  website
 china_df = pd.read_csv('https://raw.githubusercontent.com/BlankerL/DXY-COVID-19-Data/master/csv/DXYArea.csv')
@@ -249,14 +215,6 @@ china_df = china_df[[
 ]]
 china_df = china_df.sort_values(['Date', 'Region'])
 
-
-
-
-
-##### PART 5: #####
-
-'''Credit to https://github.com/open-covid-19 for scraping Spain data from MSCBS'''
-
 # Download data.csv from COVID-19 GitHub and clean data
 url = 'https://raw.githubusercontent.com/open-covid-19/data/master/output/data.csv'
 spain_df = pd.read_csv(url)
@@ -291,14 +249,6 @@ spain_df['Confirmed'] = spain_df['Confirmed'].fillna(value)
 spain_df = spain_df[['Date', 'Days Since 2019-12-31', 'CountryCode', 'CountryName', 'Region', 'Confirmed', 'Deaths', 'Latitude', 'Longitude']]
 spain_df = spain_df.sort_values(['Date', 'CountryCode'])
 
-
-
-
-
-##### PART 6: #####
-
-'''Credit to https://github.com/open-covid-19 for scraping Italy data'''
-
 # Download data.csv from COVID-19 GitHub and clean data
 url = 'https://raw.githubusercontent.com/open-covid-19/data/master/output/data.csv'
 italy_df = pd.read_csv(url)
@@ -331,14 +281,6 @@ italy_df['Confirmed'] = italy_df['Confirmed'].fillna(value)
 # Sort dataset by date
 italy_df = italy_df[['Date', 'Days Since 2019-12-31', 'CountryCode', 'CountryName', 'Region', 'Confirmed', 'Deaths', 'Latitude', 'Longitude']]
 italy_df = italy_df.sort_values(['Date', 'CountryCode'])
-
-
-
-
-
-##### PART 7: #####
-
-'''Credit to https://github.com/open-covid-19 for scraping Australia data'''
 
 # Download data.csv from COVID-19 GitHub and clean data
 url = 'https://raw.githubusercontent.com/open-covid-19/data/master/output/data.csv'
@@ -373,11 +315,6 @@ australia_df['Confirmed'] = australia_df['Confirmed'].fillna(value)
 australia_df = australia_df[['Date', 'Days Since 2019-12-31', 'CountryCode', 'CountryName', 'Region', 'Confirmed', 'Deaths', 'Latitude', 'Longitude']]
 australia_df = australia_df.sort_values(['Date', 'CountryCode'])
 
-
-
-
-
-##### PART 8: #####
 '''
 Only needs to be executed the very first time the program is run.
 From the first time onwards, you do not need to re-save the complete_df to your directory. It will already be saved.
@@ -396,14 +333,6 @@ You will simply be adding the latest days data to the complete_df, then writing 
 # complete_df.to_csv('Output_Data/complete_df.csv', index=False)
 # complete_df.to_json('Output_Data/complete_df.json', orient='records')
 # =============================================================================
-
-
-
-
-
-##### PART 9: #####
-
-# Adding new day's data to the complete dataframe
 
 # Extract a subset with only the most recent date from world_df
 world_df_latest = pd.DataFrame(columns=list(world_df.columns))

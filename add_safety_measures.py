@@ -1,10 +1,7 @@
-# Date of safety measure implimentation
-
 import pandas as pd
 
 complete_df = pd.read_csv("Output_Data/complete_df.csv")
 populations_df = pd.read_csv("Helper_Data/country_populations.csv", encoding='ISO-8859-1')
-
 
 # Ensure columns are of type str and int
 populations_df["CountryName"] = populations_df["CountryName"].astype(str)
@@ -49,8 +46,6 @@ for item in world_missing:
 # Create temp population column for complete_df
 temp_complete_df = pd.merge(complete_df, populations_df, on="CountryName")
 
-############################################################################################################
-
 # Add Population of US states
 us_df = pd.read_csv("Helper_Data/us_states_population.csv", encoding='ISO-8859-1')
 
@@ -80,8 +75,6 @@ for item in us_missing:
 
 # Create temp population column for complete_df
 temp_us_df = pd.merge(complete_df_us, us_df, on=["CountryName", "Region"])
-
-############################################################################################################
 
 # Add population of Chinese provinces
 china_df = pd.read_csv("Helper_Data/china_province_population.csv")
@@ -113,8 +106,6 @@ for item in china_missing:
 # Create temp population column for complete_df
 temp_china_df = pd.merge(complete_df_china, china_df, on="Region")
 
-############################################################################################################
-
 # Add population of Spain regions
 spain_df = pd.read_csv("Helper_Data/spain_region_population.csv")
 
@@ -145,8 +136,6 @@ for item in spain_missing:
 # Create temp population column for complete_df
 temp_spain_df = pd.merge(complete_df_spain, spain_df, on="Region")
 
-############################################################################################################
-
 # Add population of Italy regions
 italy_df = pd.read_csv("Helper_Data/metadata_it.csv")
 
@@ -168,8 +157,6 @@ for item in italy_missing:
 # Create temp population column for complete_df
 temp_italy_df = pd.merge(complete_df_italy, italy_df, on="Region")
 
-############################################################################################################
-
 # Add population of Australia regions
 australia_df = pd.read_csv("Helper_Data/metadata_au.csv")
 
@@ -190,8 +177,6 @@ for item in australia_missing:
         
 # Create temp population column for complete_df
 temp_australia_df = pd.merge(complete_df_australia, australia_df, on="Region")
-
-############################################################################################################
 
 # Combine all dataframes into one
 temp_final_df = pd.concat([temp_complete_df, temp_us_df, temp_china_df, temp_spain_df, temp_italy_df, temp_australia_df], ignore_index=True)
